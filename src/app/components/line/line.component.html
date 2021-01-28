@@ -1,0 +1,8 @@
+
+<ng-container *ngFor="let symbol of symbols">
+  <app-letter
+    [symbol]=symbol
+    (symbolClick)="symbolClick($event)"
+  >
+  </app-letter>
+</ng-container>

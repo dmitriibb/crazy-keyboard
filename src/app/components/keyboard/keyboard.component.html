@@ -1,0 +1,20 @@
+
+
+<br>
+
+<br>
+<div>
+  <ng-container *ngFor="let line of lines">
+    <app-line
+      [symbols]="line"
+      (symbolClickLine)="symbolClickLine($event)"
+    ></app-line>
+    <br>
+  </ng-container>
+</div>
+<br>
+<p-button label="Cancel" (onClick)="cancelClick($event)"></p-button>
+<br>
+<p-button label="Clear" (onClick)="clearClick($event)"></p-button>
+
+
