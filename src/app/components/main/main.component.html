@@ -1,0 +1,9 @@
+<div class="main">
+  <input type="text" pInputText [(ngModel)]="input"/>
+  <br>
+
+  <keyboard-component (symbolClickKeyboard)="symbolClickKeyboard($event)"
+                      (backSpaceClick)="backSpaceClickKeyboard()"
+                      (clearClickKeyboard)="clearClickKeyboard()"
+  ></keyboard-component>
+</div>

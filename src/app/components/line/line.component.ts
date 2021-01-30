@@ -1,14 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {KeyModel} from '../../model/key.model';
 
 @Component({
-  selector: 'app-line',
+  selector: 'line-component',
   templateUrl: './line.component.html',
   styleUrls: ['./line.component.css']
 })
 export class LineComponent implements OnInit {
 
   @Input()
-  symbols: string[];
+  symbols: KeyModel[];
 
   @Output()
   symbolClickLine: EventEmitter<string> = new EventEmitter<string>();

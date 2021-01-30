@@ -1,20 +1,21 @@
+<div class="keyBoard">
+  <div class="commonLines">
+    <ng-container *ngFor="let line of lines">
+      <line-component
+        [symbols]="line"
+        (symbolClickLine)="symbolClickLine($event)"
+      ></line-component>
+    </ng-container>
+  </div>
+  <div class="commandLine">
+    <line-component
+      [symbols]="commandLine"
+      (symbolClickLine)="commandClickLine($event)"
+    ></line-component>
+  </div>
+  <br>
+  <p-button label="Clear" (onClick)="clearClick($event)"></p-button>
 
-
-<br>
-
-<br>
-<div>
-  <ng-container *ngFor="let line of lines">
-    <app-line
-      [symbols]="line"
-      (symbolClickLine)="symbolClickLine($event)"
-    ></app-line>
-    <br>
-  </ng-container>
 </div>
-<br>
-<p-button label="Cancel" (onClick)="cancelClick($event)"></p-button>
-<br>
-<p-button label="Clear" (onClick)="clearClick($event)"></p-button>
 
 

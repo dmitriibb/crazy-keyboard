@@ -1,2 +1,2 @@
 
-<p-button class="squareLetter" label={{symbol}} (onClick)="handleClick($event)"></p-button>
+<button class="squareLetter" (click)="handleClick($event)" value="symbol" [textContent]="symbol.label"></button>

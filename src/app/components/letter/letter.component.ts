@@ -1,14 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {KeyModel} from '../../model/key.model';
 
 @Component({
-  selector: 'app-letter',
+  selector: 'letter-component',
   templateUrl: './letter.component.html',
   styleUrls: ['./letter.component.css']
 })
 export class LetterComponent implements OnInit {
 
   @Input()
-  symbol: string;
+  symbol: KeyModel;
 
   @Output()
   symbolClick: EventEmitter<string> = new EventEmitter<string>();
@@ -19,7 +20,7 @@ export class LetterComponent implements OnInit {
   }
 
   handleClick(event: any): void {
-    this.symbolClick.emit(this.symbol);
+    this.symbolClick.emit(this.symbol.value);
   }
 
 }

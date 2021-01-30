@@ -1,38 +1,56 @@
 import { Injectable } from '@angular/core';
-import {ENGLISH_LETTERS, NUMBERS, SYMBOLS} from './constants';
+import {ARITHMETIC_SYMBOLS, ENGLISH_LETTERS, NUMBERS, RUSSIAN_LETTERS, SPECIAL_SYMBOLS, TEXT_SYMBOLS} from './constants';
+import {KeyModel} from '../model/key.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class KeyboardGeneratorService {
 
+  defaultHeight = 4;
+  defaultWidth = 10;
 
   constructor() { }
 
-  public generateLines(linesNumber: number, width: number): string[][] {
-    const maxLength = linesNumber * width;
-    const symbols = this.generateSymbols(maxLength);
+  public generateLinesEnglish(): KeyModel[][] {
+    const arr: string[] = [...ENGLISH_LETTERS];
+    arr.push(...TEXT_SYMBOLS);
+    return this.generateLines(arr, this.defaultHeight, this.defaultWidth);
+  }
 
-    const lines: string[][] = [];
-    for (let i = 0; i < linesNumber; i++) {
+  public generateLinesRussian(): KeyModel[][] {
+    const arr: string[] = [...RUSSIAN_LETTERS];
+    arr.push(...TEXT_SYMBOLS);
+    return this.generateLines(arr, this.defaultHeight, this.defaultWidth);
+  }
+
+  public generateLinesArithmetic(): KeyModel[][] {
+    const arr: string[] = [...ARITHMETIC_SYMBOLS];
+    return this.generateLines(arr, this.defaultHeight, this.defaultWidth);
+  }
+
+  public generateLinesDefault(symbols: string[]): KeyModel[][] {
+    return this.generateLines(symbols, this.defaultHeight, this.defaultWidth);
+  }
+
+  public generateLines(symbols: string[], height: number, width: number): KeyModel[][] {
+    const maxLength = height * width;
+    symbols = symbols.slice(0, maxLength);
+    symbols = this.doubleShuffle(symbols);
+    const keys = this.createKeys(symbols);
+
+    const lines: KeyModel[][] = [];
+    for (let i = 0; i < height; i++) {
       const start = i * width;
+
+      if (start >= keys.length) break;
+
       const end = start + width;
-      const line = symbols.slice(start, end);
+      const line = keys.slice(start, end);
       lines.push(line);
     }
 
     return lines;
-  }
-
-  private generateSymbols(maxLength: number): string[] {
-    const arr = [];
-    this.addSymbols(arr, ENGLISH_LETTERS, maxLength);
-    this.addSymbols(arr, NUMBERS, maxLength);
-    this.addSymbols(arr, SYMBOLS, maxLength);
-
-    //const length = Math.min(arr.length, maxLength);
-
-    return this.shuffle(arr);
   }
 
   private addSymbols(arr: string[], symbols: string[], maxLength: number): void {
@@ -41,17 +59,32 @@ export class KeyboardGeneratorService {
     arr.push(...symbols.slice(0, addNumber));
   }
 
+  private doubleShuffle(arr: string[]): string[] {
+    let res = this.shuffle(arr);
+    this.reverse(res);
+    return this.shuffle(res);
+  }
 
   private shuffle(arr: string[]): string[] {
+    const arrCopy = [...arr];
     const res: string[] = [];
 
-    while (arr.length) {
-      const position = this.randomPosition(arr.length - 1);
-      res.push(arr[position]);
-      arr.splice(position, 1);
+    while (arrCopy.length) {
+      const position = this.randomPosition(arrCopy.length - 1);
+      res.push(arrCopy[position]);
+      arrCopy.splice(position, 1);
     }
 
     return res;
+  }
+
+  private reverse(arr: string[]): void {
+    let tmp;
+    for (let i = 0, j = arr.length - 1; i < j; i++, j--) {
+      tmp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = tmp;
+    }
   }
 
   private randomPosition(max: number): number {
@@ -66,6 +99,15 @@ export class KeyboardGeneratorService {
 
     position = Math.floor(position);
     return position % max;
+  }
+
+  private createKeys(symbols: string[]): KeyModel[] {
+    return symbols.map(symbol => {
+      const key = new KeyModel();
+      key.label = symbol;
+      key.value = symbol;
+      return key;
+    });
   }
 
 }

@@ -1,8 +1,10 @@
 .squareLetter {
-  margin: 5px;
-  height: 20px;
-  width: 20px;
-  background-color: #c2c3c4;
+  margin: 0.2em;
+  height: 2em;
+  width: 2em;
+  background-color:#ffffff;
   text-align: center;
   display: inline-block;
+  border: 2px solid #dcdcdc;
+  border-radius:8px;
 }
