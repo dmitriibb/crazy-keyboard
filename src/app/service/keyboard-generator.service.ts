@@ -24,8 +24,14 @@ export class KeyboardGeneratorService {
     return this.generateLines(arr, this.defaultHeight, this.defaultWidth);
   }
 
-  public generateLinesArithmetic(): KeyModel[][] {
-    const arr: string[] = [...ARITHMETIC_SYMBOLS];
+  public generateLinesNumbers(): KeyModel[][] {
+    const arr: string[] = [...NUMBERS];
+    arr.push(...ARITHMETIC_SYMBOLS);
+    return this.generateLines(arr, this.defaultHeight, this.defaultWidth);
+  }
+
+  public generateLinesSpecialSymbols(): KeyModel[][] {
+    const arr: string[] = [...SPECIAL_SYMBOLS];
     return this.generateLines(arr, this.defaultHeight, this.defaultWidth);
   }
 

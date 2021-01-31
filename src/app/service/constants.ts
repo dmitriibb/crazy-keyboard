@@ -19,3 +19,9 @@ export const WHITE_SPACE_LABEL = 'space';
 
 export const LANGUAGE_EN = 'En';
 export const LANGUAGE_RU = 'Ru';
+
+export const KEY_SET_NUMBERS_LABEL = '123';
+export const KEY_SET_NUMBERS_VALUE = 'NUMBERS';
+
+export const KEY_SET_SPECIAL_SYMBOLS_LABEL = '@';
+export const KEY_SET_SPECIAL_SYMBOLS_VALUE = 'SPECIAL_SYMBOLS';

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {KeyboardGeneratorService} from '../../service/keyboard-generator.service';
 import {
-  BACK_SPACE_LABEL,
+  BACK_SPACE_LABEL, KEY_SET_NUMBERS_LABEL, KEY_SET_NUMBERS_VALUE, KEY_SET_SPECIAL_SYMBOLS_LABEL, KEY_SET_SPECIAL_SYMBOLS_VALUE,
   LANGUAGE_EN,
   LANGUAGE_RU,
   SHIFT_LABEL_HOLD, SHIFT_LABEL_NONE, SHIFT_LABEL_ONE, SHIFT_MODE_HOLD,
@@ -17,9 +17,10 @@ import {KeyModel} from '../../model/key.model';
 export class KeyboardComponent implements OnInit {
 
   commandLine = [];
+  allKeySets: KeyModel[] = [];
 
   currentShiftMode = SHIFT_MODE_NONE;
-  currentLanguage = LANGUAGE_EN;
+  currentKeySet = LANGUAGE_EN;
 
   @Output()
   symbolClickKeyboard: EventEmitter<string> = new EventEmitter<string>();
@@ -35,17 +36,25 @@ export class KeyboardComponent implements OnInit {
   constructor(public keyboardGeneratorService: KeyboardGeneratorService) { }
 
   ngOnInit(): void {
+    this.initKeySets();
     this.generateKeyboard();
     this.generateCommands();
   }
 
   private generateKeyboard(): void {
-    switch (this.currentLanguage) {
+    switch (this.currentKeySet) {
       case LANGUAGE_EN:
         this.lines = this.keyboardGeneratorService.generateLinesEnglish();
         break;
       case LANGUAGE_RU:
         this.lines = this.keyboardGeneratorService.generateLinesRussian();
+        break;
+      case KEY_SET_NUMBERS_VALUE:
+        this.lines = this.keyboardGeneratorService.generateLinesNumbers();
+        break;
+      case KEY_SET_SPECIAL_SYMBOLS_VALUE:
+        this.lines = this.keyboardGeneratorService.generateLinesSpecialSymbols();
+        break;
     }
     this.applyShift();
   }
@@ -78,8 +87,11 @@ export class KeyboardComponent implements OnInit {
     switch (symbol) {
       case LANGUAGE_EN:
       case LANGUAGE_RU:
-        this.currentLanguage = symbol;
+      case KEY_SET_NUMBERS_VALUE:
+      case KEY_SET_SPECIAL_SYMBOLS_VALUE:
+        this.currentKeySet = symbol;
         this.generateKeyboard();
+        this.generateCommands();
         break;
 
       case SHIFT_MODE_NONE:
@@ -123,25 +135,37 @@ export class KeyboardComponent implements OnInit {
 
   private generateCommands(): void {
     this.commandLine = [];
-    this.languageCommands();
-    this.shiftCommands();
-    this.otherCommands();
-
+    this.allKeySets.forEach(keySet => {
+      if (keySet.value !== this.currentKeySet)
+        this.commandLine.push(keySet);
+    })
+    this.addShiftCommands();
+    this.assOtherCommands();
   }
 
-  private languageCommands() {
-    const englishCommand = new KeyModel();
-    englishCommand.label = LANGUAGE_EN;
-    englishCommand.value = LANGUAGE_EN;
-    this.commandLine.push(englishCommand);
+  private initKeySets() {
+    const englishKeySet = new KeyModel();
+    englishKeySet.label = LANGUAGE_EN;
+    englishKeySet.value = LANGUAGE_EN;
+    this.allKeySets.push(englishKeySet);
 
-    const russianCommand = new KeyModel();
-    russianCommand.label = LANGUAGE_RU;
-    russianCommand.value = LANGUAGE_RU;
-    this.commandLine.push(russianCommand);
+    const russianKeySet = new KeyModel();
+    russianKeySet.label = LANGUAGE_RU;
+    russianKeySet.value = LANGUAGE_RU;
+    this.allKeySets.push(russianKeySet);
+
+    const numbersKeySet = new KeyModel();
+    numbersKeySet.label = KEY_SET_NUMBERS_LABEL;
+    numbersKeySet.value = KEY_SET_NUMBERS_VALUE;
+    this.allKeySets.push(numbersKeySet);
+
+    const symbolsKeySet = new KeyModel();
+    symbolsKeySet.label = KEY_SET_SPECIAL_SYMBOLS_LABEL;
+    symbolsKeySet.value = KEY_SET_SPECIAL_SYMBOLS_VALUE;
+    this.allKeySets.push(symbolsKeySet);
   }
 
-  private shiftCommands() {
+  private addShiftCommands() {
     const shiftCommand = new KeyModel();
     if (this.currentShiftMode === SHIFT_MODE_NONE) {
       shiftCommand.label = SHIFT_LABEL_ONE;
@@ -156,7 +180,7 @@ export class KeyboardComponent implements OnInit {
     this.commandLine.push(shiftCommand);
   }
 
-  private otherCommands() {
+  private assOtherCommands() {
     const backSpaceCommand = new KeyModel();
     backSpaceCommand.label = BACK_SPACE_LABEL;
     backSpaceCommand.value = BACK_SPACE_LABEL;
