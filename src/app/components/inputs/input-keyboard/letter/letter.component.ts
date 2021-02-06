@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {KeyModel} from '../../model/key.model';
+import {KeyModel} from '../../../../model/key.model';
 
 @Component({
   selector: 'letter-component',

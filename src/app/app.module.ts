@@ -7,11 +7,16 @@ import {InputTextModule} from 'primeng/inputtext';
 
 
 import { AppComponent } from './app.component';
-import { LetterComponent } from './components/letter/letter.component';
-import { LineComponent } from './components/line/line.component';
-import { KeyboardComponent } from './components/keyboard/keyboard.component';
+import { LetterComponent } from './components/inputs/input-keyboard/letter/letter.component';
+import { LineComponent } from './components/inputs/input-keyboard/line/line.component';
+import { KeyboardComponent } from './components/inputs/input-keyboard/keyboard/keyboard.component';
 import { MainComponent } from './components/main/main.component';
 import {FormsModule} from '@angular/forms';
+import {TabViewModule} from 'primeng/tabview';
+import { KeyboardPlaygroundComponent } from './components/playground/keyboard-playground/keyboard-playground.component';
+import { DateRangeInputComponent } from './components/inputs/date-range-input/date-range-input.component';
+import { DateRangePlaygroundComponent } from './components/playground/date-range-playground/date-range-playground.component';
+import {SliderModule} from 'primeng/slider';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,10 @@ import {FormsModule} from '@angular/forms';
     LetterComponent,
     LineComponent,
     KeyboardComponent,
-    MainComponent
+    MainComponent,
+    KeyboardPlaygroundComponent,
+    DateRangeInputComponent,
+    DateRangePlaygroundComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +35,9 @@ import {FormsModule} from '@angular/forms';
     DialogModule,
     OverlayPanelModule,
     InputTextModule,
-    FormsModule
+    FormsModule,
+    TabViewModule,
+    SliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

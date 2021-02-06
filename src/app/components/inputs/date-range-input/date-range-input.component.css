@@ -1,0 +1,16 @@
+.monthSlider {
+  display: inline-block;
+}
+
+.monthLeft {
+  float: left;
+}
+
+.monthRight {
+  float: right;
+}
+
+#yearSlider {
+  margin-left: 10%;
+  margin-right: 10%;
+}

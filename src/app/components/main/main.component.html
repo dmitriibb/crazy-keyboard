@@ -1,9 +1,14 @@
-<div class="main">
-  <input type="text" pInputText [(ngModel)]="input"/>
-  <br>
+<p-tabView>
+  <p-tabPanel header="Keyboard 1">
+    <keyboard-playground>
+    </keyboard-playground>
+  </p-tabPanel>
 
-  <keyboard-component (symbolClickKeyboard)="symbolClickKeyboard($event)"
-                      (backSpaceClick)="backSpaceClickKeyboard()"
-                      (clearClickKeyboard)="clearClickKeyboard()"
-  ></keyboard-component>
-</div>
+  <p-tabPanel header="date range">
+    <date-range-playground></date-range-playground>
+  </p-tabPanel>
+
+  <p-tabPanel header="other">
+    Content 2
+  </p-tabPanel>
+</p-tabView>

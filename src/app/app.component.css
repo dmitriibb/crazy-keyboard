@@ -1,4 +1,7 @@
-.app {
-  background-color: darkgray;
+#wrapper {
+
 }
 
+.text-align-center {
+  text-align: center;
+}

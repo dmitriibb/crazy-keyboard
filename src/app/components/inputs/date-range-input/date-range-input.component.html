@@ -1,0 +1,36 @@
+<div id="yearSlider">
+  <p-slider
+            [(ngModel)]="selectedYears"
+            [min]="yearMin"
+            [max]="yearMax"
+            [range]="true"
+            (onChange)="onYearChange($event)">
+  </p-slider>
+</div>
+
+<div #monthSliders>
+  <div class="monthLeft" [style.margin-left]="monthStartMargin">
+    <h5>{{monthStart}}</h5>
+    <p-slider #monthStartSlider
+              [(ngModel)]="monthStart"
+              [min]="1"
+              [max]="maxMonthStart"
+              orientation="vertical"
+              (onChange)="onMonthChange($event)">
+    </p-slider>
+  </div>
+  <div class="monthRight" [style.margin-right]="monthEndMargin">
+    <h5>{{monthEnd}}</h5>
+    <p-slider #monthEndSlider
+              [(ngModel)]="monthEnd"
+              [min]="minMonthEnd"
+              [max]="12"
+              orientation="vertical"
+              (onChange)="onMonthChange($event)">
+    </p-slider>
+  </div>
+</div>
+
+
+
+

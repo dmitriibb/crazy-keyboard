@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {KeyboardGeneratorService} from '../../service/keyboard-generator.service';
+import {KeyboardGeneratorService} from '../../../../service/keyboard-generator.service';
 import {
   BACK_SPACE_LABEL, KEY_SET_NUMBERS_LABEL, KEY_SET_NUMBERS_VALUE, KEY_SET_SPECIAL_SYMBOLS_LABEL, KEY_SET_SPECIAL_SYMBOLS_VALUE,
   LANGUAGE_EN,
   LANGUAGE_RU,
   SHIFT_LABEL_HOLD, SHIFT_LABEL_NONE, SHIFT_LABEL_ONE, SHIFT_MODE_HOLD,
   SHIFT_MODE_NONE, SHIFT_MODE_ONE, WHITE_SPACE_LABEL
-} from '../../service/constants';
-import {KeyModel} from '../../model/key.model';
+} from '../../../../service/constants';
+import {KeyModel} from '../../../../model/key.model';
 
 @Component({
   selector: 'keyboard-component',

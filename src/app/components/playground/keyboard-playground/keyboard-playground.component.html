@@ -1,0 +1,12 @@
+<div class="text-align-center">
+  <div>
+    <div id="inputDiv">
+      <input type="text" pInputText [(ngModel)]="input"/>
+    </div>
+
+    <keyboard-component (symbolClickKeyboard)="symbolClickKeyboard($event)"
+                        (backSpaceClick)="backSpaceClickKeyboard()"
+                        (clearClickKeyboard)="clearClickKeyboard()"
+    ></keyboard-component>
+  </div>
+</div>
